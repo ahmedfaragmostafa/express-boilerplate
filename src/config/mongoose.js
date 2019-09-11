@@ -17,15 +17,16 @@ if (env === 'development') {
 }
 
 /**
-* Connect to mongo db
-*
-* @returns {object} Mongoose connection
-* @public
-*/
+ * Connect to mongo db
+ *
+ * @returns {object} Mongoose connection
+ * @public
+ */
 exports.connect = () => {
   mongoose.connect('mongodb://localhost:27017/express-rest-es2017-boilerplate', {
     keepAlive: 5,
     useNewUrlParser: true,
+    useUnifiedTopology: true,
   });
   return mongoose.connection;
 };
