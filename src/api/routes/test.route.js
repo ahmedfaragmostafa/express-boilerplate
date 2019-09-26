@@ -10,7 +10,7 @@ const router = express.Router();
 /**
  *   basic route -- example
  * @api {get} /test?name= simple get
- * @apiVersion 0.1.0
+ * @apiVersion 1
  * @apiName testNewRoute
  * @apiGroup Test
  *
