@@ -1,6 +1,6 @@
 {
   "name": "express-boilerplate",
-  "version": "0.1",
+  "version": "1.0.0",
   "description": "Express boilerplate",
   "author": "Ahmed Farag",
   "main": "src/index.js",
@@ -64,6 +64,7 @@
     "method-override": "^3.0.0",
     "mongoose": "^5.2.17",
     "morgan": "^1.8.1",
+    "nyc": "^14.1.1",
     "winston": "^3.1.0"
   },
   "devDependencies": {
@@ -81,6 +82,6 @@
     "opn-cli": "^3.1.0",
     "sinon": "^6.0.0",
     "sinon-chai": "^3.0.0",
-    "supertest": "^3.0.0"
+    "supertest": "^4.0.2"
   }
 }
