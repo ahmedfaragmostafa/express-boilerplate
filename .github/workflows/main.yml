@@ -1,7 +1,7 @@
 name: Send LGTM reaction
 on:
-  repository_dispatch:
-    types: [create-pull-request]
+  issue_comment:
+    types: [created]
 jobs:
   build:
     runs-on: ubuntu-latest
