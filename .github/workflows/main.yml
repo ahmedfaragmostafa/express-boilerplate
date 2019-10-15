@@ -1,0 +1,20 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@1.0.0
+      - uses: micnncim/action-lgtm-reaction@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.my_token_github }}
+          GIPHY_API_KEY: ${{ secrets.giphy_key }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_COMMENT_BODY: ${{ github.event.comment.body }}
+          GITHUB_ISSUE_NUMBER: ${{ github.event.issue.number }}
+        with:
+          trigger: 'looks good to me'
