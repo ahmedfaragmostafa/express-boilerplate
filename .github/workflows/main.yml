@@ -15,4 +15,4 @@ jobs:
           GITHUB_COMMENT_BODY: ${{ github.event.comment.body }}
           GITHUB_ISSUE_NUMBER: ${{ github.event.issue.number }}
         with:
-          trigger: 'looks good to me' # default: lgtm
+          trigger: 'LGTM' # default: lgtm
