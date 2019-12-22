@@ -2,6 +2,7 @@
 
 ## Features
 
+
  - No transpilers, just vanilla javascript
  - ES2017 latest features like Async/Await
  - CORS enabled
