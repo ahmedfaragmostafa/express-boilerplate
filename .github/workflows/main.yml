@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@1.0.0
       - uses: micnncim/action-lgtm-reaction@v0.4.0
         env:
-          GITHUB_TOKEN: ${{ secrets.my_token_github }}
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN_GITHUB }}
           GIPHY_API_KEY: ${{ secrets.giphy_key }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_COMMENT_BODY: ${{ github.event.comment.body }}
