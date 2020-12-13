@@ -1,8 +1,9 @@
 name: approval - create labels - auto merge - auto delete
 
 # Trigger the workflow on pull request
- on:
-   pull_request
+on:
+  pull_request
+
 
 
 jobs:
@@ -10,26 +11,27 @@ jobs:
   autoapprove:
     runs-on: ubuntu-latest
     steps:
-    - uses: hmarr/auto-approve-action@v2.0.0
-      if: github.actor == 'ahmedfaragmostafa' || github.actor == 'dependabot[bot]|| github.actor == 'dependabot'
-      with:
-        github-token: "${{ secrets.MY_TOKEN_GITHUB }}"
+      - uses: hmarr/auto-approve-action@v2.0.0
+        if: github.actor == 'ahmedfaragmostafa' || github.actor == 'dependabot-preview[bot]'
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
 
 
-# create auto-merged / approved /  tag
+  # create auto-merged / approved /  tag
   createLabel:
-      name: creating new label to test automerge
-      needs: autoapprove
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - uses: actions-ecosystem/action-add-labels@v1
-          with:
-            github_token: ${{ secrets.MY_TOKEN_GITHUB }}
-            # create labels
-            labels: |
-              dependencies
-              autodelete
+    name: creating new label to test automerge
+    needs: autoapprove
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.ACTION_GITHUB_TOKEN }}
+          # create labels
+          labels: |
+            automerge
+            autodelete
+            dependencies
 
   automerge:
     name: Auto merge after successful checks
@@ -42,9 +44,10 @@ jobs:
         # Custom action for auto merging already available on marketplace
         uses: "pascalgn/automerge-action@v0.12.0"
         # Perform the auto merge action only when the PR is raised by dependabot
-        if: github.actor == 'ahmedfaragmostafa' || github.actor == 'dependabot[bot]|| github.actor == 'dependabot'
+        # if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
+        if: github.actor == 'ahmedfaragmostafa' || github.actor == 'dependabot[bot]'
         env:
-          GITHUB_TOKEN: ${{ secrets.MY_TOKEN_GITHUB }}
+          GITHUB_TOKEN: ${{ secrets.ACTION_GITHUB_TOKEN }}
           # By default, whenever dependabot raises a PR, it automatically assigns a label named "dependencies"
           # So, this action merges those PRs labelled "dependencies" only
           MERGE_LABELS: dependencies
