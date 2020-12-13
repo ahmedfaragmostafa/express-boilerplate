@@ -62,7 +62,7 @@
     "joi": "^10.4.1",
     "lodash": "^4.17.4",
     "method-override": "^3.0.0",
-    "mongoose": "^5.2.17",
+    "mongoose": "^5.7.5",
     "morgan": "^1.8.1",
     "nyc": "^14.1.1",
     "winston": "^3.1.0"
