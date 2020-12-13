@@ -1,0 +1,51 @@
+name: approval - create labels - auto merge - auto delete
+
+# Trigger the workflow on pull request
+ on:
+   pull_request
+
+
+jobs:
+  # auto approve if user is ahmed
+  autoapprove:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: hmarr/auto-approve-action@v2.0.0
+      if: github.actor == 'ahmedfaragmostafa' || github.actor == 'dependabot[bot]|| github.actor == 'dependabot '
+      with:
+        github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+
+# create auto-merged / approved /  tag
+  createLabel:
+      name: creating new label to test automerge
+      needs: autoapprove
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - uses: actions-ecosystem/action-add-labels@v1
+          with:
+            github_token: ${{ secrets.MY_TOKEN_GITHUB }}
+            # create labels
+            labels: |
+              dependencies
+              autodelete
+
+  automerge:
+    name: Auto merge after successful checks
+    # By default, jobs run in parallel. To run the jobs sequentially, they keywords "needs" is needed.
+    # Auto merge action can be done only when the PR is approved, hence this automerge needs autoapprove as a prerequisite
+    needs: [autoapprove,createLabel]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto merge
+        # Custom action for auto merging already available on marketplace
+        uses: "pascalgn/automerge-action@v0.12.0"
+        # Perform the auto merge action only when the PR is raised by dependabot
+        if: github.actor == 'ahmedfaragmostafa' || github.actor == 'dependabot[bot]|| github.actor == 'dependabot '
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN_GITHUB }}
+          # By default, whenever dependabot raises a PR, it automatically assigns a label named "dependencies"
+          # So, this action merges those PRs labelled "dependencies" only
+          MERGE_LABELS: dependencies
+          MERGE_METHOD: rebase
